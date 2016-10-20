@@ -10,6 +10,8 @@ namespace gcodeparser
 {
     public partial class MainForm : Form
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         private ViewerDevice mViewDevice;
         private Canvas m2dTargetControl;
         private Viewer3d m3dTargetControl;
@@ -18,6 +20,7 @@ namespace gcodeparser
 
         public MainForm()
         {
+            logger.Info("Test");
             InitializeComponent();
         }
 

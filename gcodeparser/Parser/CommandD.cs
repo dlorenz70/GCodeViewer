@@ -11,7 +11,7 @@ namespace gcodeparser
 
             switch (gType)
             {
-                case -1: Logger.Log("D: no command"); return;
+                case -1: Logger.Info("D: no command"); return;
 
                 case 1: Parse1(); return;
                 case 10: Parse10(); return;
@@ -20,21 +20,21 @@ namespace gcodeparser
                 case 92: Parse92(); return;
 
                 default:
-                    Logger.Log("D: Unsupported: {0}", gType);
+                    Logger.Info("D: Unsupported: {0}", gType);
                     break;
             }
         }
 
         private void Parse1()
         {
-            Logger.Log("D1: Reset axis to 0, 0 on current location");
+            Logger.Info("D1: Reset axis to 0, 0 on current location");
 
             DeviceFactory.Get().ResetAxis();
         }
 
         private void Parse10()
         {
-            Logger.Log("D10: move axis n steps");
+            Logger.Info("D10: move axis n steps");
 
             char axis = GCodeParser.ReadChar();
             int steps = GCodeParser.ParseInt();
@@ -60,7 +60,7 @@ namespace gcodeparser
 
         private void Parse11()
         {
-            //Logger.Log("D11: move y axis n steps");
+            //Logger.Info("D11: move y axis n steps");
         }
 
         
@@ -70,7 +70,7 @@ namespace gcodeparser
 
         private void Parse21()
         {
-            //Logger.Log("D21: Enter MANUAL mode");
+            //Logger.Info("D21: Enter MANUAL mode");
             Machine.SetState(MachineState.D21_ManualMode);
         }
 

@@ -40,17 +40,9 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.SPOT.Hardware">
-      <HintPath>..\..\..\DotNet MicroFramework 4.1\v4.1\Assemblies\le\Microsoft.SPOT.Hardware.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SPOT.Native">
-      <HintPath>..\..\..\DotNet MicroFramework 4.1\v4.1\Assemblies\le\Microsoft.SPOT.Native.dll</HintPath>
-    </Reference>
-    <Reference Include="SecretLabs.NETMF.Hardware">
-      <HintPath>..\..\..\Netduino SDK\Assemblies\v4.1\SecretLabs.NETMF.Hardware.dll</HintPath>
-    </Reference>
-    <Reference Include="SecretLabs.NETMF.Hardware.Netduino">
-      <HintPath>..\..\..\Netduino SDK\Assemblies\v4.1\SecretLabs.NETMF.Hardware.Netduino.dll</HintPath>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.3.10\lib\net40\NLog.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -70,11 +62,12 @@
     <Compile Include="Parser\CommandT.cs" />
     <Compile Include="Parser\CommandD.cs" />
     <Compile Include="Parser\GcodeParser.cs" />
-    <Compile Include="Logger.cs" />
     <Compile Include="Parser\ManualModeParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

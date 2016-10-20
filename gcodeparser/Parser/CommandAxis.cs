@@ -4,7 +4,7 @@
 namespace gcodeparser
 {
     internal class CommandAxis: BaseCommand
-    {
+    {        
         public float ToX = float.MinValue;
         public float ToY = float.MinValue;
         public float ToZ = float.MinValue;

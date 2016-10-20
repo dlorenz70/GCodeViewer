@@ -19,7 +19,7 @@ namespace gcodeparser
 
     public class Machine
     {
-
+        private static NLog.Logger logger => NLog.LogManager.GetCurrentClassLogger();
         private const float ArcStep = 0.1f;  // Make sure it's a "multiple" of 1.0f.
 
         private static MachineState mState = MachineState.Stopped;
@@ -71,7 +71,7 @@ namespace gcodeparser
                     mDev.Calibrate(x, y, z);
                     break;
                 default:
-                    Logger.Error("Axis coords received, but machine is not in the right state");
+                    logger.Error("Axis coords received, but machine is not in the right state");
                     break;
             }
         }
@@ -180,14 +180,14 @@ namespace gcodeparser
 
             if (mDev == null)
             {
-                Logger.Error("Device is not initialized. Can't continue.");
+                logger.Error("Device is not initialized. Can't continue.");
             }
         }
 
         public static void Error(string msg, params object[] args)
         {
-            Logger.Error("On line: " + GCodeParser.Line);
-            Logger.Error(msg, args);
+            logger.Error("On line: " + GCodeParser.Line);
+            logger.Error(msg, args);
 #if DESKTOP
             throw new Exception(string.Format("On line: {0}\nError: {1}", 
                 GCodeParser.Line, string.Format(msg, args)));

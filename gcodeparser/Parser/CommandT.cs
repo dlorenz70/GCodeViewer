@@ -11,7 +11,7 @@ namespace gcodeparser
         {
             ToolIndex = GCodeParser.ParseInt();
 
-            Logger.Log("T: Select tool: {0}", ToolIndex);
+            Logger.Info("T: Select tool: {0}", ToolIndex);
         }
     }
 }

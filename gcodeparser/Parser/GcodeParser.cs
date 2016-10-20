@@ -12,6 +12,7 @@ namespace gcodeparser
 
     public class GCodeParser
     {
+        private static NLog.Logger Logger => NLog.LogManager.GetCurrentClassLogger();
 #if DESKTOP
         private static System.Globalization.CultureInfo USCulture = new System.Globalization.CultureInfo("en-US");
 #endif
@@ -298,7 +299,7 @@ namespace gcodeparser
                         break;
 
                     default:
-                        Logger.Log("ParseCommand: Unknown state at {0}: '{1}'", CurrentIndex, c);
+                        Logger.Warn("ParseCommand: Unknown state at {0}: '{1}'", CurrentIndex, c);
                         ReadChar();
                         break;
                 }

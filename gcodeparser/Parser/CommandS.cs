@@ -12,7 +12,7 @@ namespace gcodeparser
         {
             SpindleSpeed = GCodeParser.ParseInt();
 
-            Logger.Log("S: SetSpindleSpeed: {0}", SpindleSpeed);
+            Logger.Info("S: SetSpindleSpeed: {0}", SpindleSpeed);
         }
     }
 
