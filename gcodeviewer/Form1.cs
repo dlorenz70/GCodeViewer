@@ -10,8 +10,6 @@ namespace gcodeparser
 {
     public partial class MainForm : Form
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-
         private ViewerDevice mViewDevice;
         private Canvas m2dTargetControl;
         private Viewer3d m3dTargetControl;
@@ -20,7 +18,6 @@ namespace gcodeparser
 
         public MainForm()
         {
-            logger.Info("Test");
             InitializeComponent();
         }
 
@@ -47,13 +44,10 @@ namespace gcodeparser
                 mConfig.Load();
             }
             catch
-            {  }
+            { }
         }
 
-        private ConfigurationSection GetConfig()
-        { 
-            return mConfig.GetSection("");
-        }
+        private ConfigurationSection GetConfig() => mConfig.GetSection("");
 
         private void Setup2dViewer()
         {
@@ -66,7 +60,7 @@ namespace gcodeparser
             mViewDevice.Initialize();
             mViewDevice.CodeChanged += new EventHandler(mDevice_CodeChanged);
 
-            DeviceFactory.RegisterDevice(mViewDevice);            
+            DeviceFactory.RegisterDevice(mViewDevice);
         }
 
         private void Setup3dViewer()
@@ -136,7 +130,7 @@ namespace gcodeparser
         }
 
         private void SetupJob()
-        { 
+        {
             float distance = mViewDevice.GetTotalDistance();
             float mmPerMinute = ViewerDevice.MmPerMinute;
 
@@ -164,9 +158,9 @@ namespace gcodeparser
             int i = CurrentLineTrackbar.Value;
 
             mViewDevice.CurrentCodeLineIndex = i;
-            
+
             string currentLineText = string.Format("{0}: {1}", i + 1, mViewDevice.CodeLines[i].GCodeLine);
-            
+
             CurrentLineTextbox.Text = currentLineText;
 
             agaProgress1.Value = (int)mViewDevice.CurrentDistance;
@@ -191,7 +185,7 @@ namespace gcodeparser
             {
                 ProcessFile(openFileDialog1.FileName);
             }
-        }        
+        }
 
         private void SpindleDiameterTextbox_TextChanged(object sender, EventArgs e)
         {
@@ -223,6 +217,19 @@ namespace gcodeparser
         private Queue<CodeLine> mCodeLinesQueue = new Queue<CodeLine>();
         private bool mIsIdle = true;
 
+        public ViewerDevice ViewDevice
+        {
+            get
+            {
+                return mViewDevice;
+            }
+
+            set
+            {
+                this.mViewDevice = value;
+            }
+        }
+
         private void Connect()
         {
             if (mTcpDevice != null) Disconnect();
@@ -246,9 +253,9 @@ namespace gcodeparser
         private void Disconnect()
         {
             if (mTcpDevice == null) return;
-            
+
             mTcpDevice.Send("exit\r\n");
-            
+
             mTcpDevice.Disconnect();
             mTcpDevice = null;
         }
@@ -281,10 +288,7 @@ namespace gcodeparser
             mTcpDevice.Send(currentLine.Line + "\n");
         }
 
-        internal bool IsDeviceIdle()
-        {
-            return mIsIdle;
-        }
+        internal bool IsDeviceIdle() => mIsIdle;
 
         private void Cancel()
         {
@@ -356,7 +360,7 @@ namespace gcodeparser
             mTcpDevice.ErrorRaised -= new CncDeviceDelegate(mTcpDevice_ErrorRaised);
 
             mTcpDevice = null;
-        }       
+        }
 
         void mTcpDevice_DataSent(ConnectionState state)
         {
@@ -375,7 +379,7 @@ namespace gcodeparser
         {
             UpdateState(state);
 
-            MessageBox.Show(state.LastError.Message, "Device error", 
+            MessageBox.Show(state.LastError.Message, "Device error",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
@@ -436,6 +440,13 @@ namespace gcodeparser
             }
             catch
             { }
+        }
+
+        private void ModifyStep_Click(object sender, EventArgs e)
+        {
+            ModifyForm f = new ModifyForm(this);
+            f.Owner = this;
+            f.Show();
         }
     }
 

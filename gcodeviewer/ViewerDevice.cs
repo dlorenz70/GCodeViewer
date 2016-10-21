@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace gcodeparser
 {
-    public class ViewerDevice: Device
+    public class ViewerDevice : Device
     {
         // Machine simulation
 
@@ -52,7 +52,7 @@ namespace gcodeparser
             {
                 return mVisualScale;
             }
-            set 
+            set
             {
                 mVisualScale = value;
                 mParentControl.Invalidate();
@@ -93,25 +93,13 @@ namespace gcodeparser
         }
 
 
-        internal ViewerStep CurrentStep
-        {
-            get
-            {
-                return mSteps[mCurrentStep];
-            }
-        }
+        internal ViewerStep CurrentStep => mSteps[mCurrentStep];
 
-        public float CurrentDistance
-        {
-            get
-            {
-                return mCurrentDistance;
-            }
-        }
+        public float CurrentDistance => mCurrentDistance;
 
         public int CurrentStepIndex
         {
-            get 
+            get
             {
                 return mCurrentStep;
             }
@@ -122,21 +110,9 @@ namespace gcodeparser
             }
         }
 
-        public int TotalSteps
-        {
-            get
-            {
-                return mSteps.Count;
-            }
-        }
+        public int TotalSteps => mSteps.Count;
 
-        public List<ViewerLine> CodeLines
-        {
-            get
-            {
-                return mCodeLines;
-            }
-        }
+        public List<ViewerLine> CodeLines => mCodeLines;
 
         public int CurrentCodeLineIndex
         {
@@ -149,6 +125,11 @@ namespace gcodeparser
                 mCurrentLineIndex = value;
                 mParentControl.Invalidate();
             }
+        }
+
+        public void InvalidateParentControl()
+        {
+            this.mParentControl.Invalidate();
         }
 
 
@@ -170,11 +151,11 @@ namespace gcodeparser
 
         public override void Print(string s)
         {
-            
+
         }
 
         public override void SetFeedRate(float mmPerMinute)
-        { 
+        {
             // Do nothing
         }
 
@@ -226,8 +207,8 @@ namespace gcodeparser
         private void AddStep(float fromX, float fromY, float fromZ, float toX, float toY, float toZ)
         {
             ViewerStep op = new ViewerStep(
-                fromX * mDeviceScale, 
-                fromY * mDeviceScale, 
+                fromX * mDeviceScale,
+                fromY * mDeviceScale,
                 fromZ,
                 toX * mDeviceScale,
                 toY * mDeviceScale,
@@ -260,7 +241,7 @@ namespace gcodeparser
 
         // __ Paint handling ____________________________________________________________
 
-        
+
         public void Clear()
         {
             mCodeLines.Clear();
@@ -312,9 +293,9 @@ namespace gcodeparser
 
                 g.DrawEllipse(mToolPen, GetRect(head.End.X, head.End.Y, mToolDiameter / 4));
                 //g.DrawString(
-                    ////string.Format("{0}, {1}", op.End.X, op.End.Y),
-                    //string.Format("{0}", mCurrentStep),
-                    //mParentControl.Font, Brushes.Red, op.End);
+                ////string.Format("{0}, {1}", op.End.X, op.End.Y),
+                //string.Format("{0}", mCurrentStep),
+                //mParentControl.Font, Brushes.Red, op.End);
             }
         }
 
@@ -358,8 +339,8 @@ namespace gcodeparser
 
         private void DrawGrid(Graphics g)
         {
-            int w = (int)CutAreaWidth; 
-            int h = (int)CutAreaHeight; 
+            int w = (int)CutAreaWidth;
+            int h = (int)CutAreaHeight;
 
             for (int x = 0; x <= w; x += (int)GridStep) g.DrawLine(mGridPen, x, 0, x, h);
             for (int y = 0; y <= h; y += (int)GridStep) g.DrawLine(mGridPen, 0, y, w, y);
@@ -373,10 +354,7 @@ namespace gcodeparser
 
         }
 
-        private static RectangleF GetRect(float x, float y)
-        {
-            return GetRect(x, y, 4);
-        }
+        private static RectangleF GetRect(float x, float y) => GetRect(x, y, 4);
 
         private static RectangleF GetRect(float x, float y, float r)
         {

@@ -31,6 +31,9 @@
             this.RenderPanel = new System.Windows.Forms.Panel();
             this.CurrentLineTrackbar = new System.Windows.Forms.TrackBar();
             this.RightPanel = new System.Windows.Forms.Panel();
+            this.Remove = new System.Windows.Forms.Button();
+            this.Add = new System.Windows.Forms.Button();
+            this.ModifyStep = new System.Windows.Forms.Button();
             this.ManualModeButton = new System.Windows.Forms.Button();
             this.agaLabel11 = new AGAControls.AgaLabel();
             this.agaLabel10 = new AGAControls.AgaLabel();
@@ -81,7 +84,7 @@
             // CurrentLineTrackbar
             // 
             this.CurrentLineTrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CurrentLineTrackbar.LargeChange = 10;
             this.CurrentLineTrackbar.Location = new System.Drawing.Point(7, 171);
             this.CurrentLineTrackbar.Maximum = 1;
@@ -95,6 +98,9 @@
             // RightPanel
             // 
             this.RightPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(160)))), ((int)(((byte)(167)))));
+            this.RightPanel.Controls.Add(this.Remove);
+            this.RightPanel.Controls.Add(this.Add);
+            this.RightPanel.Controls.Add(this.ModifyStep);
             this.RightPanel.Controls.Add(this.ManualModeButton);
             this.RightPanel.Controls.Add(this.agaLabel11);
             this.RightPanel.Controls.Add(this.agaLabel10);
@@ -126,6 +132,37 @@
             this.RightPanel.Name = "RightPanel";
             this.RightPanel.Size = new System.Drawing.Size(233, 566);
             this.RightPanel.TabIndex = 8;
+            // 
+            // Remove
+            // 
+            this.Remove.ForeColor = System.Drawing.Color.Black;
+            this.Remove.Location = new System.Drawing.Point(155, 466);
+            this.Remove.Name = "Remove";
+            this.Remove.Size = new System.Drawing.Size(62, 23);
+            this.Remove.TabIndex = 31;
+            this.Remove.Text = "Remove";
+            this.Remove.UseVisualStyleBackColor = true;
+            // 
+            // Add
+            // 
+            this.Add.ForeColor = System.Drawing.Color.Black;
+            this.Add.Location = new System.Drawing.Point(87, 466);
+            this.Add.Name = "Add";
+            this.Add.Size = new System.Drawing.Size(62, 23);
+            this.Add.TabIndex = 31;
+            this.Add.Text = "Add";
+            this.Add.UseVisualStyleBackColor = true;
+            // 
+            // ModifyStep
+            // 
+            this.ModifyStep.ForeColor = System.Drawing.Color.Black;
+            this.ModifyStep.Location = new System.Drawing.Point(19, 466);
+            this.ModifyStep.Name = "ModifyStep";
+            this.ModifyStep.Size = new System.Drawing.Size(62, 23);
+            this.ModifyStep.TabIndex = 31;
+            this.ModifyStep.Text = "Modify";
+            this.ModifyStep.UseVisualStyleBackColor = true;
+            this.ModifyStep.Click += new System.EventHandler(this.ModifyStep_Click);
             // 
             // ManualModeButton
             // 
@@ -160,7 +197,7 @@
             // 
             // MachineStatusLabel
             // 
-            this.MachineStatusLabel.Location = new System.Drawing.Point(80, 390);
+            this.MachineStatusLabel.Location = new System.Drawing.Point(84, 390);
             this.MachineStatusLabel.Name = "MachineStatusLabel";
             this.MachineStatusLabel.Size = new System.Drawing.Size(67, 23);
             this.MachineStatusLabel.TabIndex = 29;
@@ -172,9 +209,9 @@
             // 
             this.CancelMachiningButton.Enabled = false;
             this.CancelMachiningButton.ForeColor = System.Drawing.Color.Black;
-            this.CancelMachiningButton.Location = new System.Drawing.Point(146, 385);
+            this.CancelMachiningButton.Location = new System.Drawing.Point(157, 385);
             this.CancelMachiningButton.Name = "CancelMachiningButton";
-            this.CancelMachiningButton.Size = new System.Drawing.Size(75, 23);
+            this.CancelMachiningButton.Size = new System.Drawing.Size(60, 23);
             this.CancelMachiningButton.TabIndex = 28;
             this.CancelMachiningButton.Text = "CANCEL";
             this.CancelMachiningButton.UseVisualStyleBackColor = true;
@@ -184,7 +221,7 @@
             // 
             this.PlayButton.Enabled = false;
             this.PlayButton.ForeColor = System.Drawing.Color.Black;
-            this.PlayButton.Location = new System.Drawing.Point(15, 385);
+            this.PlayButton.Location = new System.Drawing.Point(19, 385);
             this.PlayButton.Name = "PlayButton";
             this.PlayButton.Size = new System.Drawing.Size(62, 23);
             this.PlayButton.TabIndex = 27;
@@ -256,7 +293,7 @@
             this.agaLabel8.ForeColor = System.Drawing.Color.White;
             this.agaLabel8.Location = new System.Drawing.Point(15, 257);
             this.agaLabel8.Name = "agaLabel8";
-            this.agaLabel8.Size = new System.Drawing.Size(84, 15);
+            this.agaLabel8.Size = new System.Drawing.Size(83, 15);
             this.agaLabel8.TabIndex = 21;
             this.agaLabel8.Text = "Total distance:";
             this.agaLabel8.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
@@ -335,7 +372,7 @@
             this.agaLabel5.ForeColor = System.Drawing.Color.White;
             this.agaLabel5.Location = new System.Drawing.Point(15, 128);
             this.agaLabel5.Name = "agaLabel5";
-            this.agaLabel5.Size = new System.Drawing.Size(97, 15);
+            this.agaLabel5.Size = new System.Drawing.Size(96, 15);
             this.agaLabel5.TabIndex = 15;
             this.agaLabel5.Text = "Translation (x, y):";
             this.agaLabel5.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
@@ -356,7 +393,7 @@
             // agaLabel4
             // 
             this.agaLabel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.agaLabel4.AutoSize = true;
             this.agaLabel4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.agaLabel4.ForeColor = System.Drawing.Color.White;
@@ -370,8 +407,8 @@
             // CurrentLineTextbox
             // 
             this.CurrentLineTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CurrentLineTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(160)))), ((int)(((byte)(167)))));
             this.CurrentLineTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.CurrentLineTextbox.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -471,7 +508,7 @@
             // agaProgress1
             // 
             this.agaProgress1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.agaProgress1.DataBindings.Add(new System.Windows.Forms.Binding("ProgressColor", global::gcodeparser.Properties.Settings.Default, "ProgressColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.agaProgress1.Location = new System.Drawing.Point(189, 69);
             this.agaProgress1.Maximum = 100;
@@ -580,6 +617,9 @@
         private AGAControls.AgaLabel agaLabel10;
         private AGAControls.AgaLabel MachineStatusLabel;
         private System.Windows.Forms.Button ManualModeButton;
+        private System.Windows.Forms.Button Remove;
+        private System.Windows.Forms.Button Add;
+        private System.Windows.Forms.Button ModifyStep;
     }
 }
 

@@ -12,6 +12,7 @@ namespace gcodeparser
         private GlPen GlCutPen = new GlPen(new ColorRgb(0f, 0.9f, 0f), 3f);
         private GlPen GlCutPendingPen = new GlPen(new ColorRgb(1f, 0f, 0f), 3f);
         private GlPen GlMovePen = new GlPen(new ColorRgb(0.7f, 0.7f, 0.7f), 1f);
+        private GlPen GlCurrentMovePen = new GlPen(new ColorRgb(1.0f, 0.7f, 0.7f), 3f);
         private GlPen GlGridPen = new GlPen(new ColorRgb(0.5f, 0.5f, 0.5f), 1f);
         private GlPen GlSmallGridPen = new GlPen(new ColorRgb(0.4f, 0.4f, 0.4f), 0.5f);
 
@@ -64,9 +65,9 @@ namespace gcodeparser
         {
             ViewerStep head = null;
 
-            foreach (ViewerStep step in mCodeLines[index].Steps)
+            foreach (ViewerStep step in this.CodeLines[index].Steps)
             {
-                DrawStep(step, ref head, (mCurrentLineIndex > index) );
+                DrawStep(step, ref head, (mCurrentLineIndex > index));
             }
         }
 
@@ -115,7 +116,7 @@ namespace gcodeparser
 
         private void DrawStep(ViewerStep op, ref ViewerStep head, bool alreadyCut)
         {
-            GlPen pen = (op.IsCuttingOp) ? GlCutPen : GlMovePen;
+            GlPen pen = (op.IsCuttingOp) ? GlCutPen : alreadyCut ? GlCurrentMovePen : GlMovePen;
 
             if (pen == GlCutPen && !alreadyCut) pen = GlCutPendingPen;
 
@@ -135,7 +136,7 @@ namespace gcodeparser
         {
             SetPen(pen);
 
-            Gl.glBegin(Gl.GL_LINES);            
+            Gl.glBegin(Gl.GL_LINES);
             Gl.glVertex3f(op.Start.X, op.Start.Y, op.Start.Z);
             Gl.glVertex3f(op.End.X, op.End.Y, op.End.Z);
             Gl.glEnd();
@@ -203,16 +204,13 @@ namespace gcodeparser
     {
         public static float ToolDiameter = 3.2f;
 
-        public Vect3f Start;
-        public Vect3f End;
+        public Vect3f Start { get; set; }
+        public Vect3f End { get; set; }
         internal float Distance;
 
         internal string GCodeLine;
 
-        public bool IsCuttingOp
-        {
-            get { return (End.Z <= ViewerDevice.ZCutLevel) && (Start.Z <= ViewerDevice.ZCutLevel); }
-        }
+        public bool IsCuttingOp => (End.Z <= ViewerDevice.ZCutLevel) && (Start.Z <= ViewerDevice.ZCutLevel);
 
         public ViewerStep(float fromX, float fromY, float fromZ, float toX, float toY, float toZ)
         {
